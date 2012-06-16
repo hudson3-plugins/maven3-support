@@ -34,7 +34,7 @@ THE SOFTWARE.
 
     <groupId>org.hudsonci.plugins</groupId>
     <artifactId>hudson-maven3</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
     <name>Hudson :: Maven 3</name>
     <packaging>pom</packaging>
   
