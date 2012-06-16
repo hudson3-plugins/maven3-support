@@ -24,39 +24,40 @@ THE SOFTWARE.
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.jvnet.hudson.main</groupId>
-    <artifactId>hudson-maven3</artifactId>
-    <version>2.2.1-SNAPSHOT</version>
-  </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.hudsonci.plugins</groupId>
+        <artifactId>hudson-maven3</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+    </parent>
 
-  <artifactId>maven3-eventspy-common</artifactId>
-  <name>Hudson :: Maven 3 :: Event Spy Common</name>
+    <artifactId>maven3-eventspy-common</artifactId>
+    <name>Hudson :: Maven 3 :: Event Spy Common</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <scope>provided</scope>
-    </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>maven3-model</artifactId>
-    </dependency>
+        <dependency>
+            <groupId>org.hudsonci.plugins</groupId>
+            <artifactId>maven3-model</artifactId>
+        </dependency>
 
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>hudson-remoting</artifactId>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
+        <dependency>
+            <groupId>org.eclipse.hudson.main</groupId>
+            <artifactId>hudson-remoting</artifactId>
+            <version>${hudson.remoting.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 </project>

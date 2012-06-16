@@ -24,238 +24,306 @@ THE SOFTWARE.
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.jvnet.hudson.main</groupId>
-    <artifactId>hudson-maven3</artifactId>
-    <version>2.2.1-SNAPSHOT</version>
-  </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.hudsonci.plugins</groupId>
+        <artifactId>hudson-maven3</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+    </parent>
 
-  <artifactId>maven3-plugin</artifactId>
-  <name>Hudson :: Maven 3 :: Plugin</name>
-  <packaging>hpi</packaging>
+    <artifactId>maven3-plugin</artifactId>
+    <name>Hudson :: Maven 3 :: Plugin</name>
+    <packaging>hpi</packaging>
 
-  <properties>
-    <pluginName>Hudson Maven3 Support</pluginName>
-  </properties>
+    <properties>
+        <pluginName>Hudson Maven3 Support</pluginName>
+    </properties>
 
-  <url>http://wiki.hudson-ci.org/display/HUDSON/Maven+3+Build+Plugin</url>
+    <url>http://wiki.hudson-ci.org/display/HUDSON/Maven+3+Build+Plugin</url>
 
-  <dependencyManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jvnet.hudson.main</groupId>
+                <artifactId>hudson-rest</artifactId>
+                <type>pom</type>
+                <version>${hudson.rest.version}</version>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jvnet.hudson.main</groupId>
+                <artifactId>hudson-gwt</artifactId>
+                <type>pom</type>
+                <version>${hudson.gwt.version}</version>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-      <dependency>
-        <groupId>org.jvnet.hudson.main</groupId>
-        <artifactId>hudson-rest</artifactId>
-        <type>pom</type>
-        <version>2.1.2</version>
-        <scope>import</scope>
-      </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-      <dependency>
-        <groupId>org.jvnet.hudson.main</groupId>
-        <artifactId>hudson-gwt</artifactId>
-        <type>pom</type>
-        <version>2.1.2</version>
-        <scope>import</scope>
-      </dependency>
+        <dependency>
+            <groupId>org.hudsonci.plugins</groupId>
+            <artifactId>maven3-eventspy-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-test-utils</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-core</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hudson-cli</artifactId>
+                    <groupId>org.eclipse.hudson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hudson-remoting</artifactId>
+                    <groupId>org.eclipse.hudson.main</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-service</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hudson-plugin-utils</artifactId>
+                    <groupId>org.eclipse.hudson</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jvnet.hudson.main</groupId>
+            <artifactId>hudson-rest-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.sonatype.aether</groupId>
+            <artifactId>aether-util</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hudsonci.plugins</groupId>
+            <artifactId>maven3-slavebundle</artifactId>
+            <type>zip</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jvnet.hudson.main</groupId>
+            <artifactId>hudson-gwt-common</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>guava-gwt</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>gwt-log</artifactId>
+                    <groupId>com.google.code.gwt-log</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava-gwt</artifactId>
+            <version>12.0</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>com.allen-sauer.gwt.log</groupId>
+            <artifactId>gwt-log</artifactId>
+            <version>3.1.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jvnet.hudson.main</groupId>
+            <artifactId>hudson-gwt-icons-silk</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jvnet.hudson.main</groupId>
+            <artifactId>hudson-gwt-theme-chrome</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.fusesource.restygwt</groupId>
+            <artifactId>restygwt</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jvnet.hudson.main</groupId>
+            <artifactId>hudson-gwt-test-support</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hudsonci.plugins</groupId>
+            <artifactId>maven3-model</artifactId>
+            <type>test-jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-utils</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+         <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-plugin-utils</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.eclipse.hudson.main</groupId>
+            <artifactId>hudson-remoting</artifactId>
+            <version>${hudson.remoting.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jvnet.hudson.main</groupId>
+            <artifactId>rest-plugin</artifactId>
+            <type>jar</type>
+        </dependency>
     </dependencies>
-  </dependencyManagement>
 
-  <dependencies>
-    <dependency>
-      <groupId>javax.xml.bind</groupId>
-      <artifactId>jaxb-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>maven3-eventspy-common</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>rest-plugin</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>hudson-service</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>hudson-rest-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.sonatype.aether</groupId>
-      <artifactId>aether-util</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>maven3-slavebundle</artifactId>
-      <type>zip</type>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>hudson-gwt-common</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>hudson-gwt-icons-silk</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>hudson-gwt-theme-chrome</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.fusesource.restygwt</groupId>
-      <artifactId>restygwt</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>hudson-gwt-test-support</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>maven3-model</artifactId>
-      <type>test-jar</type>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>hudson-test-utils</artifactId>
-      <scope>test</scope>
-    </dependency>
-   
-  </dependencies>
-
-  <build>
+    <build>
     <!-- Strip off the version; so its easier to drop in plugins for testing -->
-    <finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}</finalName>
 
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.enunciate</groupId>
-        <artifactId>maven-enunciate-plugin</artifactId>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>install-components</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes/org/hudsonci/maven/plugin/install</outputDirectory>
-              <stripVersion>true</stripVersion>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.jvnet.hudson.main</groupId>
-                  <artifactId>maven3-slavebundle</artifactId>
-                  <type>zip</type>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>gwt-maven-plugin</artifactId>
-        <configuration>
-          <runTarget>MavenBuildInfo.html</runTarget>
-        </configuration>
-        <executions>
-          <execution>
-            <id>compile-gwt</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <!-- Used in GWT dev/hosted mode. -->
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-          <warSourceDirectory>src/main/webapp</warSourceDirectory>
-          <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.jvnet.hudson.tools</groupId>
-        <artifactId>maven-hpi-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <showDeprecation>true</showDeprecation>
-          <disabledTestInjection>true</disabledTestInjection>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
-  <profiles>
-    <profile>
-      <id>it</id>
-      <activation>
-        <property>
-          <name>it</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
         <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>gwt-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>test</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
+            <plugin>
+                <groupId>org.codehaus.enunciate</groupId>
+                <artifactId>maven-enunciate-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install-components</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes/org/hudsonci/maven/plugin/install</outputDirectory>
+                            <stripVersion>true</stripVersion>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.hudsonci.plugins</groupId>
+                                    <artifactId>maven3-slavebundle</artifactId>
+                                    <type>zip</type>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <configuration>
+                    <runTarget>MavenBuildInfo.html</runTarget>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>compile-gwt</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+        <!-- Used in GWT dev/hosted mode. -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jvnet.hudson.tools</groupId>
+                <artifactId>maven-hpi-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <showDeprecation>true</showDeprecation>
+                    <disabledTestInjection>true</disabledTestInjection>
+                </configuration>
+            </plugin>
         </plugins>
-      </build>
-    </profile>
-  </profiles>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>it</id>
+            <activation>
+                <property>
+                    <name>it</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>gwt-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

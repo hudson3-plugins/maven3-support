@@ -24,63 +24,114 @@ THE SOFTWARE.
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.jvnet.hudson.main</groupId>
-    <artifactId>hudson-maven3</artifactId>
-    <version>2.2.1-SNAPSHOT</version>
-  </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.hudsonci.plugins</groupId>
+        <artifactId>hudson-maven3</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+    </parent>
 
-  <artifactId>maven3-snapshots</artifactId>
-  <name>Hudson :: Maven 3 :: SNAPSHOT Monitor</name>
-  <packaging>hpi</packaging>
+    <artifactId>maven3-snapshots</artifactId>
+    <name>Hudson :: Maven 3 :: SNAPSHOT Monitor</name>
+    <packaging>hpi</packaging>
 
-  <properties>
-    <pluginName>Hudson SNAPSHOT Monitoring</pluginName>
-  </properties>
+    <properties>
+        <pluginName>Hudson SNAPSHOT Monitoring</pluginName>
+    </properties>
 
-  <url>http://wiki.hudson-ci.org/display/HUDSON/Maven+3+Snapshots+Plugin</url>
+    <url>http://wiki.hudson-ci.org/display/HUDSON/Maven+3+Snapshots+Plugin</url>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-repository-metadata</artifactId>
-      <version>${mavenVersion}</version>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-repository-metadata</artifactId>
+            <version>${mavenVersion}</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>maven3-plugin</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jvnet.hudson.main</groupId>
-          <artifactId>hudson-rest-plugin</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+        <dependency>
+            <groupId>org.hudsonci.plugins</groupId>
+            <artifactId>maven3-plugin</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jvnet.hudson.main</groupId>
+                    <artifactId>hudson-rest-plugin</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-core</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hudson-cli</artifactId>
+                    <groupId>org.eclipse.hudson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hudson-remoting</artifactId>
+                    <groupId>org.eclipse.hudson.main</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-    <dependency>
-      <groupId>org.jvnet.hudson.main</groupId>
-      <artifactId>hudson-service</artifactId>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
+        <dependency>
+            <artifactId>hudson-utils</artifactId>
+            <groupId>org.eclipse.hudson</groupId>
+            <version>${hudson.core.version}</version>
+        </dependency>
+        
+         <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-service</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hudson-plugin-utils</artifactId>
+                    <groupId>org.eclipse.hudson</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+         <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-inject</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+    
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-plugin-utils</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+          <exclusions>
+            <exclusion>
+              <artifactId>hudson-utils</artifactId>
+              <groupId>org.eclipse.hudson</groupId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+    </dependencies>
 
-  <build>
+    <build>
     <!-- Strip off the version; so its easier to drop in plugins for testing -->
-    <finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}</finalName>
 
-    <plugins>
-      <plugin>
-        <groupId>org.jvnet.hudson.tools</groupId>
-        <artifactId>maven-hpi-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <showDeprecation>true</showDeprecation>
-          <disabledTestInjection>true</disabledTestInjection>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+        <plugins>
+            <plugin>
+                <groupId>org.jvnet.hudson.tools</groupId>
+                <artifactId>maven-hpi-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <showDeprecation>true</showDeprecation>
+                    <disabledTestInjection>true</disabledTestInjection>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
