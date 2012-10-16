@@ -47,6 +47,12 @@ THE SOFTWARE.
         <mavenVersion>3.0.3</mavenVersion>
         <plexus-component-annotations.version>1.5.5</plexus-component-annotations.version>
     </properties>
+    
+    <scm>
+    <connection>scm:git:git://github.com/hudson3-plugins/maven3-support.git</connection>
+    <developerConnection>scm:git:git@github.com:hudson3-plugins/maven3-support.git</developerConnection>
+    <url>https://github.com/hudson3-plugins/maven3-support-plugin</url>
+  </scm>
 
     <dependencyManagement>
         <dependencies>
