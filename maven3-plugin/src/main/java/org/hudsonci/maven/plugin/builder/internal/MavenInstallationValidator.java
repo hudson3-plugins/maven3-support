@@ -24,35 +24,26 @@
 
 package org.hudsonci.maven.plugin.builder.internal;
 
-import org.hudsonci.maven.plugin.install.MavenInstallation;
-import org.hudsonci.maven.plugin.install.SlaveBundleInstaller;
-import org.sonatype.gossip.support.MuxLoggerFactory;
-import org.hudsonci.utils.tasks.Chmod;
-import org.hudsonci.utils.tasks.FetchClassLocation;
-import org.hudsonci.utils.tasks.TaskListenerLogger;
-import hudson.AbortException;
-import hudson.EnvVars;
-import hudson.FilePath;
-import hudson.Launcher;
-import hudson.Proc;
+import hudson.*;
 import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
 import hudson.remoting.VirtualChannel;
 import hudson.util.ArgumentListBuilder;
 import hudson.util.ClasspathBuilder;
+import org.hudsonci.maven.plugin.install.MavenInstallation;
+import org.hudsonci.maven.plugin.install.SlaveBundleInstaller;
+import org.hudsonci.utils.tasks.Chmod;
+import org.hudsonci.utils.tasks.FetchClassLocation;
+import org.hudsonci.utils.tasks.TaskListenerLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.aether.util.version.GenericVersionScheme;
 import org.sonatype.aether.version.Version;
 import org.sonatype.aether.version.VersionConstraint;
 import org.sonatype.aether.version.VersionScheme;
+import org.sonatype.gossip.support.MuxLoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
+import java.io.*;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
@@ -60,11 +51,7 @@ import java.util.zip.ZipFile;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.lang.String.format;
-import static org.hudsonci.maven.plugin.builder.internal.MavenConstants.JAVA_HOME;
-import static org.hudsonci.maven.plugin.builder.internal.MavenConstants.M2_HOME;
-import static org.hudsonci.maven.plugin.builder.internal.MavenConstants.MAVEN_OPTS;
-import static org.hudsonci.maven.plugin.builder.internal.MavenConstants.MAVEN_SKIP_RC;
-import static org.hudsonci.maven.plugin.builder.internal.MavenConstants.TRUE;
+import static org.hudsonci.maven.plugin.builder.internal.MavenConstants.*;
 
 /**
  * Perform validation of a Maven installation.
@@ -72,8 +59,7 @@ import static org.hudsonci.maven.plugin.builder.internal.MavenConstants.TRUE;
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
  * @since 2.1.0
  */
-public class MavenInstallationValidator
-{
+public class MavenInstallationValidator {
     private static final Logger log = LoggerFactory.getLogger(MavenInstallationValidator.class);
 
     private final MavenInstallation installation;
@@ -89,13 +75,14 @@ public class MavenInstallationValidator
     private final TaskListenerLogger logger;
 
     private final Logger muxlog;
+    public static final String MAVEN_EXEC_WIN = "maven.executable.win";
+    public static final String MAVEN_EXEC_NIX = "maven.executable.nix";
 
     public MavenInstallationValidator(final MavenInstallation installation,
                                       final AbstractBuild<?, ?> build,
                                       final EnvVars buildEnv,
                                       final Launcher launcher,
-                                      final BuildListener listener)
-    {
+                                      final BuildListener listener) {
         this.installation = checkNotNull(installation);
         this.build = checkNotNull(build);
         this.buildEnv = checkNotNull(buildEnv);
@@ -124,13 +111,20 @@ public class MavenInstallationValidator
 
     public FilePath getExecutable() throws Exception {
         if (executable == null) {
-            String file = "mvn";
-            if (!launcher.isUnix()) {
-                file += ".bat";
-            }
+            FilePath mvn;
+            if (launcher.isUnix() && buildEnv.containsKey(MAVEN_EXEC_NIX)) {
+                mvn = new FilePath(launcher.getChannel(), buildEnv.get(MAVEN_EXEC_NIX));
+            } else if (buildEnv.containsKey(MAVEN_EXEC_WIN)) {
+                mvn = new FilePath(launcher.getChannel(), buildEnv.get(MAVEN_EXEC_WIN));
+            } else {
+                String file = "mvn";
+                if (!launcher.isUnix()) {
+                    file += ".bat";
+                }
 
-            FilePath dir = getHome();
-            FilePath mvn = dir.child("bin").child(file);
+                FilePath dir = getHome();
+                mvn = dir.child("bin").child(file);
+            }
             ensureFileExists(mvn);
 
             // Make sure its executable
@@ -165,7 +159,7 @@ public class MavenInstallationValidator
 
     private String getMavenVersionFromProperties() {
         try {
-            FilePath[] jars = getHome().child( "lib" ).list("maven-core-*.jar, maven-*-uber.jar");
+            FilePath[] jars = getHome().child("lib").list("maven-core-*.jar, maven-*-uber.jar");
             if (jars != null && jars.length > 0) {
                 FilePath jar = jars[0];
                 Properties mavenProperties = jar.act(new FilePath.FileCallable<Properties>() {
@@ -188,7 +182,8 @@ public class MavenInstallationValidator
                         } finally {
                             zipFile.close();
                         }
-                    }});
+                    }
+                });
                 if (muxlog.isTraceEnabled()) {
                     muxlog.trace("Maven installation properties: {}", mavenProperties);
                 }
@@ -214,11 +209,11 @@ public class MavenInstallationValidator
 
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         Proc process = launcher.launch()
-            .cmds(args)
-            .envs(env)
-            .pwd(build.getWorkspace())
-            .stdout(buffer)
-            .start();
+                .cmds(args)
+                .envs(env)
+                .pwd(build.getWorkspace())
+                .stdout(buffer)
+                .start();
 
         int result = process.joinWithTimeout(timeout, timeoutUnit, listener);
 
@@ -229,8 +224,8 @@ public class MavenInstallationValidator
 
         if (result != 0) {
             throw new AbortException(
-                format("Failed to determine Maven 3 installation version;" +
-                        " unexpected exit code: %d, command output: %s", process.join(), output));
+                    format("Failed to determine Maven 3 installation version;" +
+                            " unexpected exit code: %d, command output: %s", process.join(), output));
         }
 
         BufferedReader reader = new BufferedReader(new StringReader(output));
@@ -259,8 +254,7 @@ public class MavenInstallationValidator
         String tmp = getMavenVersion();
         try {
             version = versionScheme.parseVersion(tmp);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new AbortException("Unable to parse Maven version: " + tmp);
         }
 
@@ -294,11 +288,11 @@ public class MavenInstallationValidator
 
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         Proc process = launcher.launch()
-            .cmds(args)
-            .envs(env)
-            .pwd(build.getWorkspace())
-            .stdout(buffer)
-            .start();
+                .cmds(args)
+                .envs(env)
+                .pwd(build.getWorkspace())
+                .stdout(buffer)
+                .start();
 
         int result = process.joinWithTimeout(timeout, timeoutUnit, listener);
 
