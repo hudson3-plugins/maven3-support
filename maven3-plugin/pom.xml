@@ -32,6 +32,7 @@ THE SOFTWARE.
     </parent>
 
     <artifactId>maven3-plugin</artifactId>
+    <version>3.0.1a-SNAPSHOT</version>
     <name>Hudson :: Maven 3 :: Plugin</name>
     <packaging>hpi</packaging>
 
@@ -214,7 +215,7 @@ THE SOFTWARE.
         </dependency>
         
         <dependency>
-            <groupId>org.eclipse.hudson</groupId>
+            <groupId>org.eclipse.hudson.main</groupId>
             <artifactId>hudson-remoting</artifactId>
             <version>${hudson.remoting.version}</version>
             <scope>provided</scope>
