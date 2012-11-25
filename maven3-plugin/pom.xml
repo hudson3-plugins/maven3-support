@@ -28,7 +28,7 @@ THE SOFTWARE.
     <parent>
         <groupId>org.hudsonci.plugins</groupId>
         <artifactId>hudson-maven3</artifactId>
-        <version>3.0.1a-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>maven3-plugin</artifactId>
