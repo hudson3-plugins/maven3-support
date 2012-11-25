@@ -34,7 +34,7 @@ THE SOFTWARE.
 
     <groupId>org.hudsonci.plugins</groupId>
     <artifactId>hudson-maven3</artifactId>
-    <version>3.0.1a-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
     <name>Hudson :: Maven 3</name>
     <packaging>pom</packaging>
   
@@ -109,14 +109,14 @@ THE SOFTWARE.
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-plugin</artifactId>
-                <version>${mainstream.project.version}</version>
+                <version>3.0.1a-SNAPSHOT</version>
                 <type>hpi</type>
             </dependency>
 
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-plugin</artifactId>
-                <version>${mainstream.project.version}</version>
+                <version>3.0.1a-SNAPSHOT</version>
                 <type>jar</type>
             </dependency>
 
