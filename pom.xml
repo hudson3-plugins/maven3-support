@@ -28,7 +28,7 @@ THE SOFTWARE.
     <parent>
         <groupId>org.eclipse.hudson</groupId>
         <artifactId>hudson-parent</artifactId>
-        <version>3.0.0-RC3</version>
+        <version>3.0.0-RC4</version>
         <relativePath />
     </parent>
 
@@ -46,6 +46,7 @@ THE SOFTWARE.
         <hudson.gwt.version>2.1.2</hudson.gwt.version>
         <mavenVersion>3.0.3</mavenVersion>
         <plexus-component-annotations.version>1.5.5</plexus-component-annotations.version>
+        <mainstream.project.version>3.0.1-SNAPSHOT</mainstream.project.version>
     </properties>
     
     <scm>
@@ -81,13 +82,13 @@ THE SOFTWARE.
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-model</artifactId>
-                <version>${project.version}</version>
+                <version>${mainstream.project.version}</version>
             </dependency>
       
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-model</artifactId>
-                <version>${project.version}</version>
+                <version>${mainstream.project.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
@@ -95,40 +96,40 @@ THE SOFTWARE.
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-eventspy-common</artifactId>
-                <version>${project.version}</version>
+                <version>${mainstream.project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-eventspy-3.0</artifactId>
-                <version>${project.version}</version>
+                <version>${mainstream.project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-slavebundle</artifactId>
-                <version>${project.version}</version>
+                <version>${mainstream.project.version}</version>
                 <type>zip</type>
             </dependency>
 
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>3.0.1a-SNAPSHOT</version>
                 <type>hpi</type>
             </dependency>
 
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>3.0.1a-SNAPSHOT</version>
                 <type>jar</type>
             </dependency>
 
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-snapshots</artifactId>
-                <version>${project.version}</version>
+                <version>${mainstream.project.version}</version>
                 <type>hpi</type>
             </dependency>
         </dependencies>
