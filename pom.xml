@@ -33,7 +33,7 @@ THE SOFTWARE.
 
     <groupId>org.hudsonci.plugins</groupId>
     <artifactId>maven3-plugin-parent</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.1</version>
     <name>Hudson Maven3 Plugin Parent</name>
     <packaging>pom</packaging>
   
@@ -46,7 +46,7 @@ THE SOFTWARE.
         <mavenVersion>3.0.3</mavenVersion>
         <enunciate.version>1.26.2</enunciate.version>
         <plexus-component-annotations.version>1.5.5</plexus-component-annotations.version>
-        <mainstream.project.version>3.0.1-SNAPSHOT</mainstream.project.version>
+        <mainstream.project.version>3.0.1</mainstream.project.version>
     </properties>
     
     <scm>
