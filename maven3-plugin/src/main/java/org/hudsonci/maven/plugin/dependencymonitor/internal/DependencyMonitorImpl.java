@@ -89,28 +89,28 @@ public class DependencyMonitorImpl
         checkNotNull(project);
         log.debug("Subscribe: {}", project);
 
-        subscribedProjects.add(project.getName());
+        subscribedProjects.add(project.getFullName());
     }
 
     public void unsubscribe(final AbstractProject project) {
         checkNotNull(project);
         log.debug("Unsubscribe: {}", project);
 
-        subscribedProjects.remove(project.getName());
+        subscribedProjects.remove(project.getFullName());
     }
 
     /**
      * Check if the given project is subscribed to receive artifact updated notifications.
      */
     private boolean isSubscribedForArtifactNotifications(final AbstractProject project) {
-        return subscribedProjects.contains(project.getName());
+        return subscribedProjects.contains(project.getFullName());
     }
 
     public void purge(final AbstractProject project) {
         checkNotNull(project);
         log.debug("Purge: {}", project);
 
-        subscribedProjects.remove(project.getName());
+        subscribedProjects.remove(project.getFullName());
         projectArtifactCache.purgeArtifacts(project);
     }
 

@@ -48,6 +48,8 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import hudson.model.Hudson;
+import java.util.ArrayList;
 import static org.hudsonci.utils.common.Varargs.$;
 
 /**
@@ -75,12 +77,12 @@ public class ProjectArtifactCacheImpl
     /**
      * Map of artifact producing projects to their produced artifacts.
      */
-    private final Multimap<AbstractProject,MavenCoordinatesDTO> projectProducedArtifacts = HashMultimap.create();
+    private final Multimap<String,MavenCoordinatesDTO> projectProducedArtifacts = HashMultimap.create();
 
     /**
      * Map of artifact consuming projects to their consumed artifacts.
      */
-    private final Multimap<AbstractProject,MavenCoordinatesDTO> projectConsumedArtifacts = HashMultimap.create();
+    private final Multimap<String,MavenCoordinatesDTO> projectConsumedArtifacts = HashMultimap.create();
 
     @Inject
     public ProjectArtifactCacheImpl(final ProjectService projectService, final ArtifactsExtractor artifactsExtractor) {
@@ -119,9 +121,10 @@ public class ProjectArtifactCacheImpl
 
     public Collection<MavenCoordinatesDTO> getProducedArtifacts(final AbstractProject project) {
         checkNotNull(project);
+        
         Lock lock = readLock();
         try {
-            return ImmutableSet.copyOf(projectProducedArtifacts.get(project));
+            return ImmutableSet.copyOf(projectProducedArtifacts.get(project.getFullName()));
         }
         finally {
             lock.unlock();
@@ -132,7 +135,7 @@ public class ProjectArtifactCacheImpl
         checkNotNull(project);
         Lock lock = readLock();
         try {
-            return ImmutableSet.copyOf(projectConsumedArtifacts.get(project));
+            return ImmutableSet.copyOf(projectConsumedArtifacts.get(project.getFullName()));
         }
         finally {
             lock.unlock();
@@ -142,7 +145,15 @@ public class ProjectArtifactCacheImpl
     public Collection<AbstractProject> getArtifactProducers() {
         Lock lock = readLock();
         try {
-            return ImmutableSet.copyOf(projectProducedArtifacts.keySet());
+            final ArrayList<AbstractProject> ret = new ArrayList<AbstractProject>();
+            for (String name: projectProducedArtifacts.keySet()) {
+                final AbstractProject p = Hudson.getInstance().getItemByFullName(name, AbstractProject.class);
+                if ( p != null ) {
+                    ret.add(p);
+                }
+            }
+            
+            return ret;
         }
         finally {
             lock.unlock();
@@ -152,22 +163,32 @@ public class ProjectArtifactCacheImpl
     public Collection<AbstractProject> getArtifactConsumers() {
         Lock lock = readLock();
         try {
-            return ImmutableSet.copyOf(projectConsumedArtifacts.keySet());
+            final ArrayList<AbstractProject> ret = new ArrayList<AbstractProject>();
+            for (String name: projectConsumedArtifacts.keySet()) {
+                final AbstractProject p = Hudson.getInstance().getItemByFullName(name, AbstractProject.class);
+                if ( p != null ) {
+                    ret.add(p);
+                }
+            }
+            
+            return ret;
         }
         finally {
             lock.unlock();
         }
     }
 
-    private Collection<AbstractProject> projectsContaining(final Multimap<AbstractProject, MavenCoordinatesDTO> source,
+    private Collection<AbstractProject> projectsContaining(final Multimap<String, MavenCoordinatesDTO> source,
                                                            final MavenCoordinatesDTO artifact)
     {
         assert source != null;
         assert artifact != null;
         Set<AbstractProject> projects = Sets.newHashSet();
-        for (AbstractProject project : source.keySet()) {
-            if (source.containsEntry(project, artifact)) {
-                projects.add(project);
+        Hudson hudson = Hudson.getInstance();
+        for (String projectName : source.keySet()) {
+            if (source.containsEntry(projectName, artifact)) {
+                AbstractProject p = hudson.getItemByFullName(projectName, AbstractProject.class);
+                projects.add(p);
             }
         }
         return projects;
@@ -284,12 +305,12 @@ public class ProjectArtifactCacheImpl
         }
     }
 
-    private boolean updateArtifacts(final Multimap<AbstractProject, MavenCoordinatesDTO> collection,
+    private boolean updateArtifacts(final Multimap<String, MavenCoordinatesDTO> collection,
                                     final AbstractProject project,
                                     final Collection<MavenCoordinatesDTO> artifacts)
     {
         assert collection != null;
-        Collection<MavenCoordinatesDTO> removed = collection.replaceValues(project, artifacts);
+        Collection<MavenCoordinatesDTO> removed = collection.replaceValues(project.getFullName(), artifacts);
         return CollectionsHelper.differs(artifacts, removed);
     }
 
@@ -299,19 +320,19 @@ public class ProjectArtifactCacheImpl
 
         Lock lock = writeLock();
         try {
-            projectProducedArtifacts.removeAll(project);
-            projectConsumedArtifacts.removeAll(project);
+            projectProducedArtifacts.removeAll(project.getFullName());
+            projectConsumedArtifacts.removeAll(project.getFullName());
         }
         finally {
             lock.unlock();
         }
     }
 
-    private boolean projectsContain(final Multimap<AbstractProject, MavenCoordinatesDTO> source, final MavenCoordinatesDTO artifact) {
+    private boolean projectsContain(final Multimap<String, MavenCoordinatesDTO> source, final MavenCoordinatesDTO artifact) {
         assert source != null;
         assert artifact != null;
-        for (AbstractProject project : source.keySet()) {
-            if (source.containsEntry(project, artifact)) {
+        for (String name : source.keySet()) {
+            if (source.containsEntry(name, artifact)) {
                 return true;
             }
         }
