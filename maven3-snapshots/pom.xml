@@ -27,12 +27,13 @@ THE SOFTWARE.
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.hudsonci.plugins</groupId>
-        <artifactId>hudson-maven3</artifactId>
+        <artifactId>maven3-plugin-parent</artifactId>
         <version>3.0.1-SNAPSHOT</version>
     </parent>
 
+   <groupId>org.hudsonci.plugins</groupId>
     <artifactId>maven3-snapshots</artifactId>
-    <name>Hudson :: Maven 3 :: SNAPSHOT Monitor</name>
+    <name>Hudson Maven3 SNAPSHOT Monitor</name>
     <packaging>hpi</packaging>
 
     <properties>
@@ -53,8 +54,8 @@ THE SOFTWARE.
             <artifactId>maven3-plugin</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>org.jvnet.hudson.main</groupId>
-                    <artifactId>hudson-rest-plugin</artifactId>
+                    <groupId>org.hudsonci.plugin</groupId>
+                    <artifactId>rest-plugin</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -74,6 +75,21 @@ THE SOFTWARE.
                     <groupId>org.eclipse.hudson.main</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-war</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-test-framework</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <type>jar</type>
         </dependency>
 
         <dependency>
@@ -123,8 +139,9 @@ THE SOFTWARE.
 
         <plugins>
             <plugin>
-                <groupId>org.jvnet.hudson.tools</groupId>
+                <groupId>org.eclipse.hudson.tools</groupId>
                 <artifactId>maven-hpi-plugin</artifactId>
+                <version>3.0.2</version>
                 <extensions>true</extensions>
                 <configuration>
                     <showDeprecation>true</showDeprecation>

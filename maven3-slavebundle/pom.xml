@@ -25,28 +25,38 @@ THE SOFTWARE.
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.hudsonci.plugins</groupId>
-        <artifactId>hudson-maven3</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
-    </parent>
 
+    <groupId>org.hudsonci.plugins</groupId>
     <artifactId>maven3-slavebundle</artifactId>
-    <name>Hudson :: Maven 3 :: Slave Bundle</name>
+    <version>3.0.1-SNAPSHOT</version>
+    <name>Hudson Maven3 Slave Bundle</name>
     <packaging>pom</packaging>
 
     <properties>
         <jarjar-maven-plugin.version>1.4</jarjar-maven-plugin.version>
+        <mavenVersion>3.0.3</mavenVersion>
     </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>org.hudsonci.plugins</groupId>
             <artifactId>maven3-eventspy-3.0</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava-annotations</artifactId>
+            <version>r03</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava-base</artifactId>
+            <version>r03</version>
         </dependency>
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -78,6 +88,9 @@ THE SOFTWARE.
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
+                            <excludeArtifactIds>
+                                hudson-core, hudson-war, hudson-test-framework, hudson-remoting, hudson-inject, hudson-plugin-utils, stapler-jelly
+                            </excludeArtifactIds>
                             <outputDirectory>${project.build.directory}/runtime-classes</outputDirectory>
                             <excludes>META-INF/**,**/*.java</excludes>
                         </configuration>
@@ -109,7 +122,7 @@ THE SOFTWARE.
                                     <pattern>ch.qos.logback.**</pattern>
                                 </keep>
                             </rules>
-                        </configuration>
+                        </configuration>                       
                     </execution>
                 </executions>
             </plugin>

@@ -27,12 +27,12 @@ THE SOFTWARE.
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.hudsonci.plugins</groupId>
-        <artifactId>hudson-maven3</artifactId>
+        <artifactId>maven3-plugin-parent</artifactId>
         <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>maven3-eventspy-3.0</artifactId>
-    <name>Hudson :: Maven 3 :: Event Spy 3.0</name>
+    <name>Hudson Maven3 Event Spy 3.0</name>
 
     <dependencies>
         <dependency>
@@ -75,7 +75,80 @@ THE SOFTWARE.
             <artifactId>maven3-model</artifactId>
             <type>test-jar</type>
         </dependency>
-
+        
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-core</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hudson-cli</artifactId>
+                    <groupId>org.eclipse.hudson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hudson-remoting</artifactId>
+                    <groupId>org.eclipse.hudson</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-remoting</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+        </dependency>
+         
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-plugin-utils</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-war</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-test-framework</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-inject</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hudson-core</artifactId>
+                    <groupId>org.eclipse.hudson</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-service</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hudson-plugin-utils</artifactId>
+                    <groupId>org.eclipse.hudson</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <!--
+         | Test dependencies
+        -->
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-test-utils</artifactId>

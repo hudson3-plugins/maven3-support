@@ -24,8 +24,8 @@
 
 package org.hudsonci.plugins.snapshotmonitor.internal;
 
+import com.google.inject.Provider;
 import javax.inject.Inject;
-import javax.inject.Provider;
 
 import org.hudsonci.plugins.snapshotmonitor.MetadataChecker;
 import org.hudsonci.plugins.snapshotmonitor.SnapshotMonitorPlugin;
