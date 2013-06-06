@@ -40,9 +40,9 @@ THE SOFTWARE.
     <properties>
         <hudson.core.version>3.0.0</hudson.core.version>
         <hudson.remoting.version>3.0.0</hudson.remoting.version>
-        <hudson.rest.version>2.2.0-SNAPSHOT</hudson.rest.version>
-        <hudson.jaxb.version>2.2.0-SNAPSHOT</hudson.jaxb.version>
-        <hudson.gwt.version>2.2.0-SNAPSHOT</hudson.gwt.version>
+        <hudson.rest.version>2.2.0</hudson.rest.version>
+        <hudson.jaxb.version>2.2.0</hudson.jaxb.version>
+        <hudson.gwt.version>2.2.0</hudson.gwt.version>
         <mavenVersion>3.0.3</mavenVersion>
         <enunciate.version>1.26.2</enunciate.version>
         <plexus-component-annotations.version>1.5.5</plexus-component-annotations.version>
