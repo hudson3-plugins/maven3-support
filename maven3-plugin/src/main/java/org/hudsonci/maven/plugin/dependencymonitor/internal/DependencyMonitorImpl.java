@@ -72,7 +72,7 @@ public class DependencyMonitorImpl
     /**
      * Set of projects which are subscribed for notifications to artifact changes.
      */
-    private final Set<AbstractProject> subscribedProjects = Collections.synchronizedSet(new HashSet<AbstractProject>());
+    private final Set<String> subscribedProjects = Collections.synchronizedSet(new HashSet<String>());
 
     private volatile boolean primed;
 
@@ -89,28 +89,28 @@ public class DependencyMonitorImpl
         checkNotNull(project);
         log.debug("Subscribe: {}", project);
 
-        subscribedProjects.add(project);
+        subscribedProjects.add(project.getName());
     }
 
     public void unsubscribe(final AbstractProject project) {
         checkNotNull(project);
         log.debug("Unsubscribe: {}", project);
 
-        subscribedProjects.remove(project);
+        subscribedProjects.remove(project.getName());
     }
 
     /**
      * Check if the given project is subscribed to receive artifact updated notifications.
      */
     private boolean isSubscribedForArtifactNotifications(final AbstractProject project) {
-        return subscribedProjects.contains(project);
+        return subscribedProjects.contains(project.getName());
     }
 
     public void purge(final AbstractProject project) {
         checkNotNull(project);
         log.debug("Purge: {}", project);
 
-        subscribedProjects.remove(project);
+        subscribedProjects.remove(project.getName());
         projectArtifactCache.purgeArtifacts(project);
     }
 
