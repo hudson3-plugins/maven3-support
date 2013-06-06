@@ -33,7 +33,6 @@ THE SOFTWARE.
 
     <groupId>org.hudsonci.plugins</groupId>
     <artifactId>maven3-plugin</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
     <name>Hudson Maven3 Plugin</name>
     <packaging>hpi</packaging>
 

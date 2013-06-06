@@ -27,7 +27,7 @@ THE SOFTWARE.
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.hudsonci.plugins</groupId>
-        <artifactId>hudson-maven3</artifactId>
+        <artifactId>maven3-plugin-parent</artifactId>
         <version>3.0.1-SNAPSHOT</version>
     </parent>
 
@@ -35,6 +35,37 @@ THE SOFTWARE.
     <name>Hudson :: Maven 3 :: Event Spy Common</name>
 
     <dependencies>
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-core</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hudson-cli</artifactId>
+                    <groupId>org.eclipse.hudson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hudson-remoting</artifactId>
+                    <groupId>org.eclipse.hudson</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-war</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.hudson</groupId>
+            <artifactId>hudson-test-framework</artifactId>
+            <version>${hudson.core.version}</version>
+            <scope>provided</scope>
+            <type>jar</type>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
