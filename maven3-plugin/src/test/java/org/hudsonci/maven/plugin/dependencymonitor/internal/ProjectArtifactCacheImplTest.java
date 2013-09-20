@@ -27,6 +27,11 @@ package org.hudsonci.maven.plugin.dependencymonitor.internal;
 import org.hudsonci.maven.model.MavenCoordinatesDTO;
 import org.hudsonci.service.ProjectService;
 import hudson.model.AbstractProject;
+import hudson.model.Hudson;
+import hudson.model.ItemGroup;
+import hudson.model.User;
+import hudson.security.AuthorizationStrategy;
+import hudson.security.ProjectMatrixAuthorizationStrategy;
 
 import org.hudsonci.maven.plugin.dependencymonitor.ArtifactsExtractor;
 import org.hudsonci.maven.plugin.dependencymonitor.ArtifactsPair;
@@ -38,6 +43,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Collection;
+import static org.easymock.EasyMock.expect;
+import org.eclipse.hudson.security.HudsonSecurityEntitiesHolder;
+import org.eclipse.hudson.security.HudsonSecurityManager;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -46,11 +54,18 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.easymock.PowerMock.createMock;
+import static org.powermock.api.easymock.PowerMock.mockStatic;
+import static org.powermock.api.easymock.PowerMock.replayAll;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
  * Tests for {@link ProjectArtifactCacheImpl}.
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({Hudson.class})
 public class ProjectArtifactCacheImplTest
 {
     @Mock
@@ -72,10 +87,31 @@ public class ProjectArtifactCacheImplTest
 
     @Mock
     private AbstractProject project2;
+    
+    @Mock
+    private ItemGroup parent;
 
     @Before
     public void setUp() throws Exception {
         cache = new ProjectArtifactCacheImpl(projectService, artifactsExtractor);
+        
+        Hudson hudson = createMock(Hudson.class);
+        HudsonSecurityManager securityManager = createMock(HudsonSecurityManager.class);
+        HudsonSecurityEntitiesHolder.setHudsonSecurityManager(securityManager);
+
+        mockStatic(Hudson.class);
+        expect(Hudson.getInstance()).andReturn(hudson).anyTimes();
+        expect(hudson.getItemByFullName("parent/project1", AbstractProject.class)).andReturn(project1).anyTimes();
+        expect(hudson.getItemByFullName("parent/project2", AbstractProject.class)).andReturn(project2).anyTimes();
+
+        when(parent.getFullName()).thenReturn("parent");
+        when(project1.getParent()).thenReturn(parent);
+        when(project2.getParent()).thenReturn(parent);
+
+        when(project1.getName()).thenReturn("project1");
+        when(project2.getName()).thenReturn("project2");
+        
+        replayAll();
     }
 
     private void assertNoArtifacts(final AbstractProject project) {
