@@ -31,6 +31,7 @@ import org.hudsonci.maven.eventspy.common.Callback;
 import org.hudsonci.maven.eventspy.common.CallbackManager;
 import org.hudsonci.maven.eventspy.common.RemotingClient;
 
+import javax.enterprise.inject.Typed;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
@@ -45,8 +46,11 @@ import static org.hudsonci.maven.eventspy.common.Constants.PORT_PROPERTY;
  *
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
  * @since 2.1.0
+ * 
+ * Limit binding with @Typed to make sure this is only seen by our delegate spy.
  */
 @Named
+@Typed(EventSpySupport.class)
 public class RemotingEventSpy
     extends EventSpySupport
 {

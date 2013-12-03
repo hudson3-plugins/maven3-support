@@ -42,7 +42,6 @@ import org.eclipse.sisu.inject.MutableBeanLocator;
 import org.eclipse.sisu.space.URLClassSpace;
 import org.eclipse.sisu.BeanEntry;
 
-import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.Map;
@@ -138,7 +137,7 @@ public class DelegatingEventSpy
         }
     }
 
-    // FIXME: May need to provide a separate EventSpyDelegate intf to use here, since once Maven becomes more Sisu-aware for loading components it will also find our alternative spy impls
+    // Our delegate impls are bound as @Typed(EventSpySupport) to stop Maven 3.1 finding and activating them directly as EventSpy's
 
     private EventSpy loadDelegate() {
         checkState(locator != null);
@@ -153,7 +152,7 @@ public class DelegatingEventSpy
         // Log what spies we know about
         if (log.isDebugEnabled()) {
             log.debug("Known spies:");
-            for (BeanEntry<Annotation, EventSpy> spy : locator.locate(Key.get(EventSpy.class))) {
+            for (BeanEntry<?, EventSpySupport> spy : locator.locate(Key.get(EventSpySupport.class))) {
                 log.debug("  {}", spy);
             }
         }
@@ -161,7 +160,7 @@ public class DelegatingEventSpy
         // Load the delegate, default to RemotingEventSpy
         String name = getProperty(DELEGATE_PROPERTY, RemotingEventSpy.class.getName());
         log.debug("Loading delegate named: {}", name);
-        Iterator<? extends BeanEntry<?, EventSpy>> itr = locator.locate(Key.get(EventSpy.class, Names.named(name))).iterator();
+        Iterator<? extends BeanEntry<?, EventSpySupport>> itr = locator.locate(Key.get(EventSpySupport.class, Names.named(name))).iterator();
         if (itr.hasNext()) {
             return itr.next().getValue();
         }
