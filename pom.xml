@@ -43,7 +43,7 @@ THE SOFTWARE.
         <hudson.rest.version>2.2.0</hudson.rest.version>
         <hudson.jaxb.version>2.2.0</hudson.jaxb.version>
         <hudson.gwt.version>2.2.0</hudson.gwt.version>
-        <mavenVersion>3.0.3</mavenVersion>
+        <mavenVersion>3.1.1</mavenVersion>
         <enunciate.version>1.26.2</enunciate.version>
         <plexus-component-annotations.version>1.5.5</plexus-component-annotations.version>
     </properties>
@@ -122,6 +122,12 @@ THE SOFTWARE.
 
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
+                <artifactId>maven3-eventspy-3.1</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-eventspy-3.0</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -159,6 +165,7 @@ THE SOFTWARE.
     <modules>
         <module>maven3-model</module>
         <module>maven3-eventspy-common</module>
+        <module>maven3-eventspy-3.1</module>
         <module>maven3-eventspy-3.0</module>
         <module>maven3-slavebundle</module>
         <module>maven3-plugin</module>
