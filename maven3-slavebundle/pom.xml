@@ -41,7 +41,7 @@ THE SOFTWARE.
 
     <properties>
         <jarjar-maven-plugin.version>1.4</jarjar-maven-plugin.version>
-        <mavenVersion>3.0.3</mavenVersion>
+        <mavenVersion>3.1.1</mavenVersion>
     </properties>
     
     <repositories>
@@ -59,6 +59,11 @@ THE SOFTWARE.
     </repositories>
  
     <dependencies>
+        <dependency>
+            <groupId>org.hudsonci.plugins</groupId>
+            <artifactId>maven3-eventspy-3.1</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.hudsonci.plugins</groupId>
             <artifactId>maven3-eventspy-3.0</artifactId>

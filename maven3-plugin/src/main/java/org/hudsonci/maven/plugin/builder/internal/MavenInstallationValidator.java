@@ -248,7 +248,8 @@ public class MavenInstallationValidator {
     public String getEventSpyVersion() throws Exception {
         // FIXME: This should probably be in its own component, as well as most of the validation bits
         VersionScheme versionScheme = new GenericVersionScheme();
-        VersionConstraint versionConstraint = new GenericVersionScheme().parseVersionConstraint("[3.0.3,)");
+        VersionConstraint maven31 = versionScheme.parseVersionConstraint("[3.1,)");
+        VersionConstraint maven30 = versionScheme.parseVersionConstraint("[3.0.3,)");
         Version version;
 
         String tmp = getMavenVersion();
@@ -258,8 +259,11 @@ public class MavenInstallationValidator {
             throw new AbortException("Unable to parse Maven version: " + tmp);
         }
 
-        // FIXME: For now we only have one spy version, so just make sure that the mvn version given is compatible
-        if (versionConstraint.containsVersion(version)) {
+        if (maven31.containsVersion(version)) {
+            return "3.1";
+        }
+
+        if (maven30.containsVersion(version)) {
             return "3.0";
         }
 
