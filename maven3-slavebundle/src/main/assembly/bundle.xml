@@ -46,6 +46,22 @@ THE SOFTWARE.
             <includes>
                 <include>**</include>
             </includes>
+            <excludes>
+                <exclude>bin/mvn</exclude>
+                <exclude>bin/mvnDebug</exclude>
+                <exclude>bin/mvnyjp</exclude>
+            </excludes>
+        </fileSet>
+
+        <fileSet>
+            <directory>target/apache-maven-${mavenVersion}</directory>
+            <outputDirectory>/bundled-maven</outputDirectory>
+            <includes>
+                <include>bin/mvn</include>
+                <include>bin/mvnDebug</include>
+                <include>bin/mvnyjp</include>
+            </includes>
+            <fileMode>0755</fileMode>
         </fileSet>
 
         <fileSet>
