@@ -28,7 +28,7 @@ THE SOFTWARE.
     <parent>
         <groupId>org.hudsonci.plugins</groupId>
         <artifactId>maven3-plugin-parent</artifactId>
-        <version>3.0.3-SNAPSHOT</version>
+        <version>3.0.3</version>
     </parent>
 
     <artifactId>maven3-eventspy-3.0</artifactId>
