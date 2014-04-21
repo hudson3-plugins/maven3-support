@@ -79,7 +79,7 @@ THE SOFTWARE.
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-remoting</artifactId>
-            <version>${hudson.core.version}</version>
+            <version>${hudson.remoting.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
