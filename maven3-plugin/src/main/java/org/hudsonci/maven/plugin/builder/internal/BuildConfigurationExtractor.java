@@ -92,7 +92,7 @@ public class BuildConfigurationExtractor
         config.setInstallationId(getString("installationId"));
         config.setGoals(getString("goals"));
         config.setProperties(getProperties("properties"));
-        config.setPomFile(getString("pomFile"));
+        config.setPomFile(getString("pomFile").trim());
         config.setPrivateRepository(getBoolean("privateRepository"));
         config.setPrivateTmpdir(getBoolean("privateTmpdir"));
         config.setOffline(getBoolean("offline"));
