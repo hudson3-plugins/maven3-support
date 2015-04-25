@@ -173,12 +173,6 @@ THE SOFTWARE.
             <artifactId>hudson-gwt-test-support</artifactId>
             <scope>test</scope>
         </dependency>
-        
-        <dependency> 
-            <groupId>org.hudsonci.plugins</groupId>
-            <artifactId>rest-plugin</artifactId>
-            <type>jar</type>
-        </dependency>
 
         <dependency>
             <groupId>org.hudsonci.plugins</groupId>
