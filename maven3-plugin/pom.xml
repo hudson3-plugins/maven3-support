@@ -33,6 +33,7 @@ THE SOFTWARE.
 
     <groupId>org.hudsonci.plugins</groupId>
     <artifactId>maven3-plugin</artifactId>
+    <version>3.0.5-SNAPSHOT</version>
     <name>Hudson Maven3 Plugin</name>
     <packaging>hpi</packaging>
 
@@ -70,14 +71,12 @@ THE SOFTWARE.
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-test-utils</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>test</scope>
         </dependency>
         
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-core</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -107,7 +106,6 @@ THE SOFTWARE.
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-service</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -119,8 +117,7 @@ THE SOFTWARE.
 
         <dependency>
             <groupId>org.hudsonci.plugins</groupId>
-            <artifactId>rest-plugin-api</artifactId>
-            <scope>provided</scope>
+            <artifactId>rest-plugin</artifactId>
         </dependency> 
 
         <dependency>
@@ -141,20 +138,10 @@ THE SOFTWARE.
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
-                    <artifactId>guava-gwt</artifactId>
-                    <groupId>com.google.guava</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>gwt-log</artifactId>
                     <groupId>com.google.code.gwt-log</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-    
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava-gwt</artifactId>
-            <version>12.0</version>
         </dependency>
     
         <dependency>
@@ -187,7 +174,7 @@ THE SOFTWARE.
             <scope>test</scope>
         </dependency>
         
-         <dependency> 
+        <dependency> 
             <groupId>org.hudsonci.plugins</groupId>
             <artifactId>rest-plugin</artifactId>
             <type>jar</type>
@@ -202,14 +189,12 @@ THE SOFTWARE.
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-utils</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-plugin-utils</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
         </dependency>
         
@@ -222,18 +207,15 @@ THE SOFTWARE.
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-war</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-test-framework</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>
-         
     </dependencies>
 
     <build>
@@ -245,7 +227,6 @@ THE SOFTWARE.
             <plugin>
                 <groupId>org.codehaus.enunciate</groupId>
                 <artifactId>maven-enunciate-plugin</artifactId>
-                <version>${enunciate.version}</version>
             </plugin>
              
 
@@ -303,7 +284,6 @@ THE SOFTWARE.
             <plugin>
                 <groupId>org.eclipse.hudson.tools</groupId>
                 <artifactId>maven-hpi-plugin</artifactId>
-                <version>3.0.2</version>
                 <extensions>true</extensions>
                 <configuration>
                     <showDeprecation>true</showDeprecation>

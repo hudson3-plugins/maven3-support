@@ -38,7 +38,6 @@ THE SOFTWARE.
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-core</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <type>jar</type>
             <exclusions>
@@ -55,14 +54,12 @@ THE SOFTWARE.
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-war</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-test-framework</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>

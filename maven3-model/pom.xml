@@ -62,7 +62,6 @@ THE SOFTWARE.
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-core</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <type>jar</type>
             <exclusions>
@@ -85,35 +84,30 @@ THE SOFTWARE.
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-utils</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-plugin-utils</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-war</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-test-framework</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-inject</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -125,7 +119,6 @@ THE SOFTWARE.
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-service</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -141,7 +134,6 @@ THE SOFTWARE.
         <dependency>
             <groupId>org.eclipse.hudson</groupId>
             <artifactId>hudson-test-utils</artifactId>
-            <version>${hudson.core.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -25,24 +25,21 @@
 package org.hudsonci.maven.plugin.ui.gwt.buildinfo;
 
 import com.allen_sauer.gwt.log.client.Log;
+import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
-import org.hudsonci.maven.model.state.BuildStateDTO;
-import org.hudsonci.maven.model.state.MavenProjectDTO;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
+import org.hudsonci.maven.model.state.BuildStateDTO;
+import org.hudsonci.maven.model.state.MavenProjectDTO;
 import org.hudsonci.maven.plugin.ui.gwt.buildinfo.event.BuildStateLoadedEvent;
 import org.hudsonci.maven.plugin.ui.gwt.buildinfo.event.BuildStateSelectedEvent;
 import org.hudsonci.maven.plugin.ui.gwt.buildinfo.event.ModuleSelectedEvent;
 import org.hudsonci.maven.plugin.ui.gwt.buildinfo.internal.ArtifactDataProvider;
 import org.hudsonci.maven.plugin.ui.gwt.buildinfo.internal.ModuleDataProvider;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Controls initial startup and extra configuration of the application.
