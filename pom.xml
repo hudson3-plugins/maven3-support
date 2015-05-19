@@ -28,7 +28,7 @@ THE SOFTWARE.
     <parent>
         <groupId>org.eclipse.hudson.plugins</groupId>
         <artifactId>hudson-plugin-parent</artifactId>
-        <version>3.3.0-SNAPSHOT</version>
+        <version>3.3.0-M0</version>
     </parent>
 
     <groupId>org.hudsonci.plugins</groupId>
@@ -38,9 +38,8 @@ THE SOFTWARE.
     <packaging>pom</packaging>
   
     <properties>
-        <hudson.core.version>3.3.0-SNAPSHOT</hudson.core.version>
-        <hudson.remoting.version>3.0.0</hudson.remoting.version>
-        <hudson.rest.version>2.2.2-SNAPSHOT</hudson.rest.version>
+        <hudson.remoting.version>3.0.2</hudson.remoting.version>
+        <hudson.rest.version>2.2.2</hudson.rest.version>
         <hudson.jaxb.version>2.2.0</hudson.jaxb.version>
         <hudson.gwt.version>2.2.0</hudson.gwt.version>
         <mavenVersion>3.1.1</mavenVersion>
