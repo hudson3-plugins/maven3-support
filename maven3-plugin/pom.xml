@@ -28,12 +28,12 @@ THE SOFTWARE.
     <parent>
         <groupId>org.hudsonci.plugins</groupId>
         <artifactId>maven3-plugin-parent</artifactId>
-        <version>3.0.5-SNAPSHOT</version>
+        <version>3.0.5</version>
     </parent>
 
     <groupId>org.hudsonci.plugins</groupId>
     <artifactId>maven3-plugin</artifactId>
-    <version>3.0.5-SNAPSHOT</version>
+    <version>3.0.5</version>
     <name>Hudson Maven3 Plugin</name>
     <packaging>hpi</packaging>
 

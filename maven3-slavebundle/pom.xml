@@ -35,7 +35,7 @@ THE SOFTWARE.
 
     <groupId>org.hudsonci.plugins</groupId>
     <artifactId>maven3-slavebundle</artifactId>
-    <version>3.0.5-SNAPSHOT</version>
+    <version>3.0.5</version>
     <name>Hudson Maven3 Slave Bundle</name>
     <packaging>pom</packaging>
 
