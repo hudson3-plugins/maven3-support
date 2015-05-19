@@ -118,11 +118,15 @@ public class MavenInstallationValidator {
                 mvn = new FilePath(launcher.getChannel(), buildEnv.get(MAVEN_EXEC_WIN));
             } else {
                 String file = "mvn";
+                FilePath dir = getHome();
                 if (!launcher.isUnix()) {
                     file += ".bat";
+                    FilePath winMvn = dir.child("bin").child(file);
+                    if (!winMvn.exists()){
+                        file = "mvn.cmd";
+                    }
                 }
 
-                FilePath dir = getHome();
                 mvn = dir.child("bin").child(file);
             }
             ensureFileExists(mvn);
