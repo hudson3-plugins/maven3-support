@@ -161,7 +161,7 @@ public class MavenBuilderServiceImpl
         for (Builder builder : project.getBuilders()) {
             if (builder instanceof MavenBuilder) {
                 if (i == index) {
-                    builder = new MavenBuilder(config);
+                    builder = new MavenBuilder(config, builder.isDisabled(), builder.getDescription());
                     found = true;
                 }
                 i++;

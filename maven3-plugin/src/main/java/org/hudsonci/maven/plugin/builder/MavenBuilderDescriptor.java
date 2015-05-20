@@ -257,7 +257,9 @@ public class MavenBuilderDescriptor
      */
     @Override
     public Builder newInstance(final StaplerRequest req, final JSONObject data) throws FormException {
-        return new MavenBuilder(createConfiguration(data));
+        boolean disabled = data.getBoolean("disabled");
+        String description = data.getString("description");
+        return new MavenBuilder(createConfiguration(data), disabled, description);
     }
 
     /**

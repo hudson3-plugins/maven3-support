@@ -80,9 +80,15 @@ public class MavenBuilder
 
     @XStreamOmitField
     private NodeService nodes;
+    
+    public MavenBuilder(final BuildConfigurationDTO config){
+        this(config, false, "");
+    }
 
-    public MavenBuilder(final BuildConfigurationDTO config) {
+    public MavenBuilder(final BuildConfigurationDTO config, boolean disabled, String description) {
         this.config = checkNotNull(config);
+        setDisabled(disabled);
+        setDescription(description);
     }
 
     @Inject
@@ -159,6 +165,11 @@ public class MavenBuilder
     public boolean perform(final AbstractBuild<?,?> build, final Launcher launcher, final BuildListener listener)
         throws InterruptedException, IOException
     {
+        if (isDisabled()){
+            listener.getLogger().println("\nThe Maven 3 builder is temporarily disabled.\n"); 
+            // just return, this builder is disabled temporarily
+            return true;
+        }
         BuildStateDTO state = attachBuildState( build ).getState();
         attachBuildAction( build );
 

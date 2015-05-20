@@ -30,6 +30,14 @@ THE SOFTWARE.
 
     <!-- FIXME: Root from code, not from crappy jelly shit -->
     <j:set var="help" value="/plugin/maven3-plugin/help/mavenbuilder"/>
+    
+     <f:entry title="" help="/help/disable-builder.html">
+        <f:checkbox name="disabled" checked="${instance.disabled}"
+                  title="${%Temporarily disable this builder}"/>
+    </f:entry>
+    <f:entry title="${%Description}" >
+        <f:textarea name="description" value="${instance.description}" class="fixed-width" />
+    </f:entry>
 
     <f:entry title="Maven 3" help="${help}/installationId.html">
         <select class="setting-input" name="installationId">
