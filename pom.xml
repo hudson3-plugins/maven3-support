@@ -36,7 +36,7 @@ THE SOFTWARE.
     <version>3.0.6-SNAPSHOT</version>
     <name>Hudson Maven3 Plugin Parent</name>
     <packaging>pom</packaging>
-  
+
     <properties>
         <hudson.remoting.version>3.0.2</hudson.remoting.version>
         <hudson.rest.version>2.2.2</hudson.rest.version>
@@ -46,7 +46,7 @@ THE SOFTWARE.
         <enunciate.version>1.26.2</enunciate.version>
         <plexus-component-annotations.version>1.5.5</plexus-component-annotations.version>
     </properties>
-    
+
     <scm>
         <connection>scm:git:git://github.com/hudson3-plugins/maven3-support.git</connection>
         <developerConnection>scm:git:git@github.com:hudson3-plugins/maven3-support.git</developerConnection>
@@ -62,7 +62,7 @@ THE SOFTWARE.
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>rest-plugin-parent</artifactId>
@@ -70,7 +70,7 @@ THE SOFTWARE.
                 <version>${hudson.rest.version}</version>
                 <scope>import</scope>
             </dependency>
-            
+
              <dependency>
                 <groupId>org.hudsonci.libs</groupId>
                 <artifactId>hudson-gwt-parent</artifactId>
@@ -78,13 +78,13 @@ THE SOFTWARE.
                 <version>${hudson.gwt.version}</version>
                 <scope>import</scope>
              </dependency>
-             
+
              <dependency>
                  <groupId>org.hudsonci.plugins</groupId>
                  <artifactId>rest-plugin</artifactId>
                  <version>${hudson.rest.version}</version>
              </dependency>
-            
+
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-component-annotations</artifactId>
@@ -104,7 +104,7 @@ THE SOFTWARE.
                 <artifactId>maven3-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
-      
+
             <dependency>
                 <groupId>org.hudsonci.plugins</groupId>
                 <artifactId>maven3-model</artifactId>
@@ -170,5 +170,23 @@ THE SOFTWARE.
         <module>maven3-plugin</module>
         <module>maven3-snapshots</module>
     </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <!-- Strictly speaking, the following two parameters
+                        do not make the artifacts completely compatible with
+                        Java 5 unless a boot class path is also specified. -->
+                        <source>1.5</source>
+                        <target>1.5</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>
